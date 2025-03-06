@@ -27,30 +27,3 @@ spec:
         type: ClusterIP
       ingressClassResource:
         default: true
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: cloudflare
-  namespace: flux-system  # FluxCD watches this namespace
-spec:
-  interval: 10m
-  chart:
-    spec:
-      chart: cloudflare-tunnel
-      version: "*"
-      sourceRef:
-        kind: HelmRepository
-        name: cloudflare
-        namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    remediation:
-      retries: 3
-  timeout: 5m
-  targetNamespace: cloudflare  # Deploy in cloudflare namespace
-  valuesFrom:
-    - kind: ConfigMap
-      name: tunnel-values
