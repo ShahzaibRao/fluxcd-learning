@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cloudflare-tunnel
+  namespace: cloudflare
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: cloudflare-tunnel
+      sourceRef:
+        kind: HelmRepository
+        name: cloudflare
+  values:
+    cloudflare:
+      tunnelName: "demo-lab"
+      tunnelId: "243b7d7f-9308-4f01-9b5c-f764b4888b1f"
+      secretName: "tunnel-credentials"
+      ingress:
+        - hostname: "*.raoshahzaib.site"
+          service: "https://ingress-nginx-controller.kube-system.svc.cluster.local:443"
+          originRequest:
+            noTLSVerify: true
+
+    resources:
+      limits:
+        cpu: "100m"
+        memory: "128Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+
+    replicaCount: 1
