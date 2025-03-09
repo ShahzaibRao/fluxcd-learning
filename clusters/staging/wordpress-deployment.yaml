@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
         - name: wordpress
-          image: wordpress:latest
-          imagePullPolicy: Always
+          image: wordpress:php8.2-apache
+          #imagePullPolicy: Always
           env:
             - name: WORDPRESS_DB_HOST
               value: mariadb
