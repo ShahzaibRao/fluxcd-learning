@@ -8,9 +8,9 @@ spec:
   chart:
     spec:
       chart: wordpress
-      version: "*"
+      version: "24.1.18"  # Set a stable version
       sourceRef:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-  values: {} 
+  values: {}
